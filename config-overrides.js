@@ -22,7 +22,7 @@ module.exports = function override(config,env) {
   };
 
    config = rewireLess.withLoaderOptions({
-     modifyVars: { "@primary-color": "#1DA57A" },
+     modifyVars: { "@primary-color": "#FA541C" },
    })(config, env);
    //config = rewireLess(config, env);
 
