@@ -22,28 +22,19 @@ const Columns: Array<object> = [{
   }];
 
 class TableComponent extends Component<any, any> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      dataSource: []
-    };
-  }
-
   componentDidMount(): any {
-    // const {userList}: any = this.props;
     return this.props.loadUserList();
-
   }
   render(): JSX.Element {
-    let userList: any[] = [];
-    if (this.props.userList.length !== 0) {
-      userList = this.props.userList;
-    }
+    // let userList: any[] = [];
+    // if (this.props.userList.length !== 0) {
+    //   userList = this.props.userList;
+    // }
     return (
       <Row>
         <Col span={4} />
         <Col span={16}>
-          <Table columns={Columns} dataSource={userList} bordered={true}/>
+          <Table columns={Columns} dataSource={this.props.userList} bordered={true}/>
         </Col>  
         <Col span={4}/>
       </Row>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 const { Component }: typeof React = React;
 const FormItem: typeof Form.Item = Form.Item;
 
+import { submitUser } from '../../redux/user/action';
 import { loadUserList } from '../../redux/list/action';
 
 // function hasErrors(fieldsError: object): boolean {
@@ -22,19 +23,20 @@ class InputForm extends Component<any, any> {
     this.props.form.validateFields();
   }
 
-  handleSubmit(e: any): void {
+  handleSubmit(e: any, type: string): void {
     e.preventDefault();
+    console.dir(type);
     this.props.form.validateFields((err: object, values: object) => {
       if (!err) {
+        this.props.submitUser(values, type);
         return this.props.loadUserList();
-      } return false;
+      } 
+      return false;
     });
   }
 
     render(): JSX.Element {
       const { getFieldDecorator }: any = this.props.form;
-    // const userNameError: string = isFieldTouched('userName') && getFieldError('userName');
-    // const passwordError: any = isFieldTouched('password') && getFieldError('password');
       return (
       <Form>
         <Row gutter={4}>
@@ -66,11 +68,16 @@ class InputForm extends Component<any, any> {
               )}
             </FormItem>
           </Col>
-          <Col span={1}>  
+          <Col span={2}>  
             <FormItem>
-                <Button type="primary" htmlType="submit" onClick={this.handleSubmit}>订餐</Button>
-              </FormItem>
-            </Col>   
+                <Button type="primary" htmlType="submit" onClick={(e: any): any => {this.handleSubmit(e, 'add'); }}>订餐</Button>
+            </FormItem>
+            </Col>
+          <Col span={2}>  
+            <FormItem>
+                <Button type="danger" htmlType="submit" onClick={(e: any): any => {this.handleSubmit(e, 'delete'); }}>取消</Button>
+            </FormItem>
+            </Col>
           <Col span={4}/>
         </Row>  
       </Form>
@@ -80,11 +87,12 @@ class InputForm extends Component<any, any> {
 
 function mapStateToProps(state: any): object {
   return {
-    userList: state.userList
+    user: state.user
   };
  }
 function mapDispatchToProps(dispatch: any, ownProps: object): object {
   return {
+    submitUser: (data: any, type: string): any => { dispatch(submitUser(data, type)); },
     loadUserList: (): any => { dispatch(loadUserList()); }
   };
 }
