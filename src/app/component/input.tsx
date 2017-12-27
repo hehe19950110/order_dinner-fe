@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Form, Icon, Input, Button, Row, Col } from 'antd';
-
+import { connect } from 'react-redux';
 const { Component }: typeof React = React;
 const FormItem: typeof Form.Item = Form.Item;
+
+import { loadUserList } from '../../redux/list/action';
 
 function hasErrors(fieldsError: object): boolean {
   return Object.keys(fieldsError).some((field: string) => fieldsError[field]);
@@ -24,10 +26,8 @@ class InputForm extends Component<any, any> {
     e.preventDefault();
     this.props.form.validateFields((err: object, values: object) => {
       if (!err) {
-        this.setState({
-          value: values
-        });
-      }
+        return this.props.loadUserList();
+      } return false;
     });
   }
 
@@ -77,5 +77,17 @@ class InputForm extends Component<any, any> {
     );
   }
 }
+
+function mapStateToProps(state: any): object {
+  return {
+    userList: state.userList
+  };
+ }
+function mapDispatchToProps(dispatch: any, ownProps: object): object {
+  return {
+    loadUserList: (): any => { dispatch(loadUserList()); }
+  };
+}
+
 const InputComponent: any = Form.create({})(InputForm);
-export default InputComponent;
+export default connect(mapStateToProps, mapDispatchToProps)(InputComponent);
