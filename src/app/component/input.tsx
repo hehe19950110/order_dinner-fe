@@ -6,9 +6,9 @@ const FormItem: typeof Form.Item = Form.Item;
 
 import { loadUserList } from '../../redux/list/action';
 
-function hasErrors(fieldsError: object): boolean {
-  return Object.keys(fieldsError).some((field: string) => fieldsError[field]);
-}
+// function hasErrors(fieldsError: object): boolean {
+//   return Object.keys(fieldsError).some((field: string) => fieldsError[field]);
+// }
 
 class InputForm extends Component<any, any> {
   constructor(props: any) {
@@ -32,7 +32,7 @@ class InputForm extends Component<any, any> {
   }
 
     render(): JSX.Element {
-      const { getFieldDecorator, getFieldsError }: any = this.props.form;
+      const { getFieldDecorator }: any = this.props.form;
     // const userNameError: string = isFieldTouched('userName') && getFieldError('userName');
     // const passwordError: any = isFieldTouched('password') && getFieldError('password');
       return (
@@ -66,11 +66,11 @@ class InputForm extends Component<any, any> {
               )}
             </FormItem>
           </Col>
-          <Col span={4}>  
+          <Col span={1}>  
             <FormItem>
-                <Button type="primary" htmlType="submit" disabled={hasErrors(getFieldsError())} onClick={this.handleSubmit}>订餐</Button>
-            </FormItem>
-          </Col>  
+                <Button type="primary" htmlType="submit" onClick={this.handleSubmit}>订餐</Button>
+              </FormItem>
+            </Col>   
           <Col span={4}/>
         </Row>  
       </Form>

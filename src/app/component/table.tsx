@@ -24,17 +24,17 @@ class TableComponent extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      dataSource: [
-        {
-          name: '文韬',
-          uid: '012404',
-          phone: '17521100216'
-        }
-      ]
+      dataSource: []
     };
   }
+
+  componentDidMount(): void {
+    const userList: Array<object> = this.props.userList;
+    this.setState({
+      dataSource: userList
+    });
+  }
   render(): JSX.Element {
-    
     return (
       <Row>
         <Col span={4} />
