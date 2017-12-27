@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Table, Row, Col } from 'antd';
 
 import { loadUserList } from '../../redux/list/action';
+//// import userList from '../../redux/list/redux';
 
 const { Component }: typeof React = React;
 
@@ -28,18 +29,21 @@ class TableComponent extends Component<any, any> {
     };
   }
 
-  componentDidMount(): void {
-    const userList: Array<object> = this.props.userList;
-    this.setState({
-      dataSource: userList
-    });
+  componentDidMount(): any {
+    // const {userList}: any = this.props;
+    return this.props.loadUserList();
+
   }
   render(): JSX.Element {
+    let userList: any[] = [];
+    if (this.props.userList.length !== 0) {
+      userList = this.props.userList;
+    }
     return (
       <Row>
         <Col span={4} />
         <Col span={16}>
-          <Table columns={Columns} dataSource={this.state.dataSource} bordered={true}/>
+          <Table columns={Columns} dataSource={userList} bordered={true}/>
         </Col>  
         <Col span={4}/>
       </Row>
